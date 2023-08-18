@@ -1,0 +1,30 @@
+{
+  "tabWidth": 2,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 80,
+  "useTabs": false,
+  "endOfLine": "lf",
+  "bracketSpacing": true,
+  "bracketSameLine": false,
+  "arrowParens": "always",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+    "^@/pages/(.*)$",
+    "^@/pageComponents/(.*)$",
+    "^@/stories/(.*)$",
+    "^@/components/(.*)$",
+    "^@/interfaces/(.*)$",
+    "^@/contexts/(.*)$",
+    "^@/constants/(.*)$",
+    "^@/api/(.*)$",
+    "^@/hooks/(.*)$",
+    "^@/utils/(.*)$",
+    "^@/styles/(.*)$",
+    "^[./]"
+  ],
+  "tailwindConfig": "./tailwind.config.cjs"
+}
