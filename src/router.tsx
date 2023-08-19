@@ -16,6 +16,7 @@ const routerArray = [
 const mainRouter = createBrowserRouter(
   createRoutesFromElements(
     <Route>
+      {}
       {routerArray.map((route) => (
         <Route key={route.path} {...route} />
       ))}

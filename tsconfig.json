@@ -19,7 +19,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["kakao.maps.d.ts"]
   },
   "include": ["src", "**/*.ts", "**/*.tsx", "**/*.config.cjs"],
   "exclude": ["node_modules"],

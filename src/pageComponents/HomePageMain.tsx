@@ -1,19 +1,23 @@
 import DistanceBtn from '@/component/DistanceBtn';
 import {
   IHospital,
+  Ilist,
   hospitalState,
+  listState,
 } from '@/component/HospitalItem/HospitalItem.type';
 import HospitalList from '@/component/HospitalList';
+import Mapuse from '@/component/Mapuse';
 import RefreshBtn from '@/component/RefreshBtn';
 import axios from 'axios';
 import Lottie from 'lottie-react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import loadingLottie from '@/utils/lottie.json';
 
 const HomePageMain = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isList, setIsList] = useRecoilState<Ilist>(listState);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
 
   useEffect(() => {
@@ -59,8 +63,9 @@ const HomePageMain = () => {
         </div>
       )}
       <RefreshBtn />
-      <DistanceBtn />
-      <HospitalList />
+      {isList.list && <DistanceBtn />}
+      {isList.list && <HospitalList />}
+      {!isList.list && <Mapuse />}
     </div>
   );
 };

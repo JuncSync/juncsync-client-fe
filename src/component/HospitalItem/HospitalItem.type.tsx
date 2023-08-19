@@ -1,10 +1,6 @@
 import React from 'react';
 import { atom } from 'recoil';
 
-// ID (number) 이름 (string) 주소 (string) 전화번호 (string) 위도 (number) 경도 (number)
-// 총 침대 (number) 현재 침대 (number)
-// 진료 의학과 (string)
-
 export interface IHospital {
   id: number;
   name: string;
@@ -16,6 +12,17 @@ export interface IHospital {
   currBed: number;
   department: string;
 }
+
+export interface Ilist {
+  list: boolean;
+}
+
+export const listState = atom<Ilist>({
+  key: 'lists',
+  default: {
+    list: true,
+  },
+});
 
 export const hospitalState = atom<IHospital[]>({
   key: 'hospitals',
