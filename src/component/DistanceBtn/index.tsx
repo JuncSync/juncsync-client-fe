@@ -23,8 +23,8 @@ const DistanceBtn = () => {
       phone: '1',
       lat: 35.16911120538366,
       lng: 129.1363094535471,
-      totBed: 10000,
-      currBed: 50,
+      totBed: 10,
+      currBed: 5,
       department: '학과1',
     },
     {
@@ -34,8 +34,8 @@ const DistanceBtn = () => {
       phone: '전화2',
       lat: 35.259368276299625,
       lng: 129.23412645566114,
-      totBed: 3000,
-      currBed: 20,
+      totBed: 30,
+      currBed: 2,
       department: '학과2',
     },
     {
@@ -45,8 +45,8 @@ const DistanceBtn = () => {
       phone: '전화2',
       lat: 35.178959258915924,
       lng: 129.20029161438148,
-      totBed: 300,
-      currBed: 200,
+      totBed: 30,
+      currBed: 1,
       department: '학과2',
     },
   ];
@@ -73,19 +73,46 @@ const DistanceBtn = () => {
     // 서버로부터 fetch를 하는 과정이 필요함
     setHospitals(defaultHos);
     updateDistance(currDistance);
-    console.log(hospitals);
+    const makeid = 'dropDown' + currDistance.toString();
+    const tmp = document.getElementById(makeid);
+    if (!tmp) return;
+    if (!tmp) {
+      console.log('13');
+      return;
+    }
+    tmp.classList.add('bg-[#fafafa]');
   }, [currDistance]);
 
   const dropSelect = useCallback(
     (e) => {
       setOpenDrop(false);
+      const makeid = 'dropDown' + currDistance.toString();
+      const tmp = document.getElementById(makeid);
+      if (!tmp) return;
+      if (!tmp) {
+        console.log('12');
+        return;
+      }
+      tmp.classList.remove('bg-[#fafafa]');
+
       setCurrDistance(
         Number(e.target.id.charAt(e.target.id.length - 1)) === 0
           ? Number(e.target.id.charAt(e.target.id.length - 2) * 10)
           : Number(e.target.id.charAt(e.target.id.length - 1)),
       );
+      const newDist =
+        Number(e.target.id.charAt(e.target.id.length - 1)) === 0
+          ? Number(e.target.id.charAt(e.target.id.length - 2) * 10)
+          : Number(e.target.id.charAt(e.target.id.length - 1));
+      const makeid1 = 'dropDown' + newDist.toString();
+      const tmp1 = document.getElementById(makeid1);
+      if (!tmp1) {
+        console.log('11');
+        return;
+      }
+      tmp.classList.add('bg-[#fafafa]');
     },
-    [setOpenDrop, setCurrDistance],
+    [setOpenDrop, currDistance, setCurrDistance],
   );
 
   return (
@@ -98,7 +125,9 @@ const DistanceBtn = () => {
               return (
                 <div
                   key={dis}
-                  className="px-[12px] py-[5px] text-[#1b1b1b] text-center"
+                  className={`px-[12px] py-[5px] text-[#1b1b1b] text-center hover:bg-[#FAFAFA] ${
+                    dis === currDistance ? ' bg-[#FAFAFA] ' : ' '
+                  }`}
                   id={makeid}
                   onClick={dropSelect}
                 >

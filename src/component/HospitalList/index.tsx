@@ -8,7 +8,7 @@ const HospitalList = () => {
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
 
   return (
-    <div className="">
+    <div className="px-[20px] flex flex-col space-y-[20px] items-center	">
       {hospitals.length > 0 ? (
         hospitals.map((hos: IHospital) => {
           const {
