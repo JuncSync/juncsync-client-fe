@@ -70,11 +70,16 @@ const RefreshBtn = () => {
           isLoading ? ' border-[#f1f1f1] ' : ' border-[#e3e3e3] '
         }`}
       >
-        <img className="w-[84px] h-[32px]" src="/logo.svg" alt="서비스 글자" />
+        <img
+          className="w-[84px] h-[32px] cursor-pointer "
+          onClick={() => window.location.replace('/')}
+          src="/logo.svg"
+          alt="서비스 글자"
+        />
         <div className="flex space-x-[6px] ">
           {isList.list ? (
             <div
-              className=" border-[0.95px] border-[#e3e3e3] rounded-[5.72px] px-[6px] py-[8px]"
+              className=" border-[0.95px] border-[#e3e3e3] rounded-[5.72px] px-[6px] py-[8px] cursor-pointer"
               onClick={toggleHandler}
             >
               <img
@@ -85,7 +90,7 @@ const RefreshBtn = () => {
             </div>
           ) : (
             <div
-              className=" border-[0.95px] border-[#e3e3e3] rounded-[5.72px] px-[6px] py-[8px]"
+              className=" border-[0.95px] border-[#e3e3e3] rounded-[5.72px] px-[6px] py-[8px] cursor-pointer"
               onClick={toggleHandler}
             >
               <img
@@ -96,7 +101,7 @@ const RefreshBtn = () => {
             </div>
           )}
           <div
-            className={`px-[12px] py-[6px] rounded-[5.72px] border-[#e3e3e3] border-[0.95px] 
+            className={`px-[12px] py-[6px] rounded-[5.72px] border-[#e3e3e3] border-[0.95px] cursor-pointer 
           ${
             isLoading
               ? ' bg-[#f1f1f1] fill-[#d2d2d2] text-[#d2d2d2] '

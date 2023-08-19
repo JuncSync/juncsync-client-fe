@@ -118,7 +118,7 @@ const DistanceBtn = () => {
       )}
       <div className=" static ">
         {openDrop && (
-          <div className="absolute z-10 w-[110px] rounded-[6px] bg-white border-[#e3e3e3] border-[1px] left-[42.25px] top-[94px]">
+          <div className="absolute z-10 w-[110px] rounded-[6px] bg-white border-[#e3e3e3] border-[1px] left-[42.25px] top-[94px] cursor-pointer ">
             {disList.map((dis: number) => {
               const makeid = 'dropDown' + dis.toString();
               return (
@@ -137,7 +137,10 @@ const DistanceBtn = () => {
           </div>
         )}
         <div className="flex items-center	justify-between space-x-[6px] px-[20px] py-[12px]">
-          <div className="flex itmes-center justify-between space-x-[6px]">
+          <div
+            className="flex itmes-center justify-between space-x-[6px] cursor-pointer "
+            onClick={() => onClickMethod()}
+          >
             <img
               className="w-[16px] h-[16px] "
               src="/location.svg"
@@ -151,7 +154,6 @@ const DistanceBtn = () => {
               className="w-[14.61px] h-[14.61px] "
               src="/setting.svg"
               alt="설정 이미지"
-              onClick={() => onClickMethod()}
             />
           </div>
           <div className="font-['Pretendard'] text-[14px] text-[#d2d2d2] ">

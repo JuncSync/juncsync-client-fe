@@ -1,9 +1,11 @@
 import axios from 'axios';
+import Lottie from 'lottie-react';
 import React, { useEffect, useState } from 'react';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
 
 import { getDistince } from '@/utils/calDistance';
+import loadingLottie from '@/utils/lottie.json';
 
 import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 
@@ -52,6 +54,11 @@ function Mapcom() {
     console.log(tot.hos);
     return (
       <>
+        {isLoading && (
+          <div className="absolute top-1/2 w-1/2 left-1/4 z-10">
+            <Lottie animationData={loadingLottie} />
+          </div>
+        )}
         <MapMarker
           position={{ lat: tot.hos.lat, lng: tot.hos.lng }}
           onClick={() => setIsOpen(true)}

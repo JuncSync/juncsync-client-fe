@@ -39,7 +39,7 @@ const HospitalItem = ({
 
   return (
     <div
-      className={`w-full flex flex-col bg-white space-y-[12px] rounded-[8px] p-[16px] border-[1px] font-['Pretendard'] ${
+      className={`w-full flex flex-col bg-white space-y-[12px] rounded-[8px] p-[16px] border-[1px] font-['Pretendard'] cursor-pointer ${
         isSelected ? 'border-[#ff6b00] drop-shadow' : 'border-[#e3e3e3]'
       }`}
       onClick={() => onClickMethod()}
