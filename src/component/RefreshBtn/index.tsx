@@ -1,4 +1,5 @@
 import loadingLottie from '@/component/lottie.json';
+// TEST
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import React, { useState } from 'react';
