@@ -5,6 +5,7 @@ import { UseGeolocation } from '../Geolocation/Geolocation.type';
 import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 
 const DistanceBtn = () => {
+  // lat 35.16606385987392 / lng 129.1357222751617
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
   const [openDrop, setOpenDrop] = useState<Boolean>(false);
   const [currDistance, setCurrDistance] = useState<Number>(5);
@@ -50,7 +51,7 @@ const DistanceBtn = () => {
         <div className="flex items-center	space-x-[2px] px-[20px] py-[4px]">
           <img
             className="w-[14px] h-[14px] "
-            src="/src/asset/location.svg"
+            src="/location.svg"
             alt="위치 이미지"
           />
           <div className="font-semibold text-[12px]">
@@ -58,7 +59,7 @@ const DistanceBtn = () => {
           </div>
           <img
             className="w-[14.61px] h-[14.61px] "
-            src="/src/asset/setting.svg"
+            src="/setting.svg"
             alt="설정 이미지"
             onClick={() => onClickMethod()}
           />
