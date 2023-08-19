@@ -32,14 +32,16 @@ const HospitalItem = ({
   }, [isSelected, setIsSelected]);
 
   return (
-    <div className="flex" onClick={() => onClickMethod()}>
-      <div>{name}</div>
-      <div>{phone}</div>
-      <div>{address}</div>
-      <div>거리</div>
-      <div>{currBed}</div>
-      <div>{totBed}</div>
-      {isSelected ? <div>{department}</div> : ''}
+    <div className="w-[360px] " onClick={() => onClickMethod()}>
+      <div className="flex ">
+        <div>{name}</div>
+        <div>{phone}</div>
+        <div>{address}</div>
+        <div>거리</div>
+        <div>{currBed}</div>
+        <div>{totBed}</div>
+        {isSelected ? <div>{department}</div> : ''}
+      </div>
     </div>
   );
 };
