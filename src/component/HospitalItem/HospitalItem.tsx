@@ -79,7 +79,7 @@ const HospitalItem = ({
         )}
       </div>
       <div className="flex justify-between border-t-[1px] border-[#f1f1f1] text-[#1b1b1b] font-semibold text-[14px] pt-[8px] ">
-        <div className="w-[124px] flex space-x-[6px] align-text-bottom">
+        <div className="w-[124px] flex space-x-[4px] align-text-bottom">
           <div className=" font-semibold text-[#1b1b1b] text-[14px] ">
             Distance
           </div>
@@ -87,7 +87,7 @@ const HospitalItem = ({
             {getDistince(currLng, currLat, lng, lat).toFixed(1)}KM
           </div>
         </div>
-        <div className="w-[148px] align-text-bottom flex space-x-[6px] font-semibold text-[#1b1b1b] text-[14px] ">
+        <div className="w-[148px] align-text-bottom flex space-x-[4px] font-semibold text-[#1b1b1b] text-[14px] ">
           <div>Remaining beds </div>
           <div>
             <span className="text-[#ff6b00] text-[14px] ">{currBed}</span>/
