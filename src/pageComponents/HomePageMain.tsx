@@ -5,11 +5,12 @@ import {
 } from '@/component/HospitalItem/HospitalItem.type';
 import HospitalList from '@/component/HospitalList';
 import RefreshBtn from '@/component/RefreshBtn';
-import loadingLottie from '@/component/lottie.json';
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+
+import loadingLottie from '@/utils/lottie.json';
 
 const HomePageMain = () => {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,16 +1,16 @@
-import loadingLottie from '@/component/lottie.json';
 // TEST
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
+import loadingLottie from '@/utils/lottie.json';
+
 import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 
 const RefreshBtn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
-
   const fetchData = async () => {
     const data: any = await axios.get(
       'https://api.juncsync.jaehong21.com/hospital',

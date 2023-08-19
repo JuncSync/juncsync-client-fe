@@ -1,10 +1,10 @@
-import loadingLottie from '@/component/lottie.json';
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { getDistince } from '@/utils/calDistance';
+import loadingLottie from '@/utils/lottie.json';
 
 import { UseGeolocation } from '../Geolocation/Geolocation.type';
 import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
