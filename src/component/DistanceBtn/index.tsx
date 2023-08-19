@@ -33,7 +33,7 @@ const DistanceBtn = () => {
       const sortedHos = [...filterHos].sort(
         (a: IHospital, b: IHospital) => b.currBed - a.currBed,
       );
-
+      console.log(sortedHos);
       return sortedHos;
     });
   };
@@ -72,9 +72,11 @@ const DistanceBtn = () => {
     // 서버로부터 fetch를 하는 과정이 필요함
     setIsLoading(true);
     fetchData();
-    setTimeout(() => setIsLoading(false), 1000);
+    setTimeout(() => {
+      setIsLoading(false);
+      updateDistance(currDistance);
+    }, 1000);
 
-    updateDistance(currDistance);
     const makeid = 'dropDown' + currDistance.toString();
     const tmp = document.getElementById(makeid);
     if (!tmp) return;
