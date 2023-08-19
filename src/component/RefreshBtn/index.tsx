@@ -1,10 +1,13 @@
+import loadingLottie from '@/component/lottie.json';
 import axios from 'axios';
-import React from 'react';
+import Lottie from 'lottie-react';
+import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 
 const RefreshBtn = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
 
   const fetchData = async () => {
@@ -36,8 +39,19 @@ const RefreshBtn = () => {
     setHospitals(newHosList);
   };
 
+  const fetDataHandler = () => {
+    setIsLoading(true);
+    fetchData();
+    setTimeout(() => setIsLoading(false), 1000);
+  };
+
   return (
     <>
+      {isLoading && (
+        <div className="absolute top-1/2 w-1/2 left-1/4 z-10">
+          <Lottie animationData={loadingLottie} />
+        </div>
+      )}
       <div className=" sticky top-0 bg-white px-[20px] py-[12px] flex items-center	justify-between border-[#f1f1f1] border-[1px]">
         <img className="w-[84px] h-[32px]" src="/logo.svg" alt="서비스 글자" />
         <div className="px-[12px] py-[6px] bg-white rounded-[5.72px] border-[#232323] border-[0.95px] text-[#717171] hover:text-[#d2d2d2] fill-[#717171] hover:fill-[#d2d2d2] hover:bg-[#f1f1f1] ">
@@ -51,7 +65,7 @@ const RefreshBtn = () => {
             </svg>
             <div
               className="w-[50px] h-[20px] font-semibold text-[14px] font-['Pretendard'] text-center hover:text-[#d2d2d2]"
-              onClick={fetchData}
+              onClick={fetDataHandler}
             >
               Refresh
             </div>

@@ -1,4 +1,6 @@
+import loadingLottie from '@/component/lottie.json';
 import axios from 'axios';
+import Lottie from 'lottie-react';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -9,6 +11,7 @@ import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 
 const DistanceBtn = () => {
   // lat 35.16606385987392 / lng 129.1357222751617
+  const [isLoading, setIsLoading] = useState(false);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
   const [openDrop, setOpenDrop] = useState<Boolean>(false);
   const [currDistance, setCurrDistance] = useState<number>(5);
@@ -67,7 +70,10 @@ const DistanceBtn = () => {
     };
 
     // 서버로부터 fetch를 하는 과정이 필요함
+    setIsLoading(true);
     fetchData();
+    setTimeout(() => setIsLoading(false), 1000);
+
     updateDistance(currDistance);
     const makeid = 'dropDown' + currDistance.toString();
     const tmp = document.getElementById(makeid);
@@ -109,6 +115,11 @@ const DistanceBtn = () => {
 
   return (
     <>
+      {isLoading && (
+        <div className="absolute top-1/2 w-1/2 left-1/4 z-10">
+          <Lottie animationData={loadingLottie} />
+        </div>
+      )}
       <div className=" static ">
         {openDrop && (
           <div className="absolute z-10 w-[110px] rounded-[6px] bg-white border-[#e3e3e3] border-[1px] left-[42.25px] top-[94px]">

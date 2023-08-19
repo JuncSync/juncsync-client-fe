@@ -5,12 +5,14 @@ import {
 } from '@/component/HospitalItem/HospitalItem.type';
 import HospitalList from '@/component/HospitalList';
 import RefreshBtn from '@/component/RefreshBtn';
+import loadingLottie from '@/component/lottie.json';
 import axios from 'axios';
-import { useEffect } from 'react';
+import Lottie from 'lottie-react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
 const HomePageMain = () => {
-  // const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
 
   useEffect(() => {
@@ -42,12 +44,18 @@ const HomePageMain = () => {
       console.log(newHosList);
       setHospitals(newHosList);
     };
+    setIsLoading(true);
     fetchData();
+    setTimeout(() => setIsLoading(false), 1000);
   }, []);
 
   return (
-    <div className="bg-white sticky top-0 w-full h-screen">
-      {/* {isLoading && <div className="text-[60px]">로딩중입니다</div>} */}
+    <div className="static bg-white sticky top-0 w-full h-screen">
+      {isLoading && (
+        <div className="absolute top-1/2 w-1/2 left-1/4 z-10">
+          <Lottie animationData={loadingLottie} />
+        </div>
+      )}
       <RefreshBtn />
       <DistanceBtn />
       <HospitalList />
