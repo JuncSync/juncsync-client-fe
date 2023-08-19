@@ -79,7 +79,11 @@ const DistanceBtn = () => {
   const dropSelect = useCallback(
     (e) => {
       setOpenDrop(false);
-      setCurrDistance(Number(e.target.id.charAt(e.target.id.length - 1)));
+      setCurrDistance(
+        Number(e.target.id.charAt(e.target.id.length - 1)) === 0
+          ? Number(e.target.id.charAt(e.target.id.length - 2) * 10)
+          : Number(e.target.id.charAt(e.target.id.length - 1)),
+      );
     },
     [setOpenDrop, setCurrDistance],
   );
@@ -93,6 +97,7 @@ const DistanceBtn = () => {
               const makeid = 'dropDown' + dis.toString();
               return (
                 <div
+                  key={dis}
                   className="px-[12px] py-[5px] text-[#1b1b1b] text-center"
                   id={makeid}
                   onClick={dropSelect}
@@ -101,11 +106,6 @@ const DistanceBtn = () => {
                 </div>
               );
             })}
-            {/* <div className="" onClick={() => dropSelect(5)}>5KM</div>
-            <div className="" onClick={() => dropSelect(10)}>10KM</div>
-            <div className="" onClick={() => dropSelect(20)}>20KM</div>
-            <div className="" onClick={() => dropSelect(30)}>30KM</div>
-            <div className="" onClick={() => dropSelect(50)}>50KM</div> */}
           </div>
         )}
         <div className="flex items-center	justify-between space-x-[6px] px-[20px] py-[12px]">
