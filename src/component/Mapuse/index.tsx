@@ -65,20 +65,20 @@ function Mapcom() {
         />
         {isOpen && (
           <CustomOverlayMap position={{ lat: tot.hos.lat, lng: tot.hos.lng }}>
-            <div className=" bg-white h-[205px] rounded-[8px] flex flex-col space-y-[12px] p-[16px] border-[#ff6b00] border-[1px]  ">
+            <div className=" bg-white rounded-[8px] flex flex-col space-y-[12px] p-[16px] border-[#ff6b00] border-[1px]  ">
               <div className="rounded-lg ">
                 <div className=" flex flex-col space-y-[10px] ">
                   <div className="flex w-full justify-between ">
                     <div className="font-semibold text-[18px] text-[#1b1b1b]">
                       {tot.hos.name}
                     </div>
-                    <div
-                      className="  "
+                    <img
+                      className="w-[16px] h-[16px] cursor-pointer "
+                      src="/x.svg"
+                      alt="닫기이미지"
                       onClick={() => setIsOpen(false)}
                       title="닫기"
-                    >
-                      X
-                    </div>
+                    />
                   </div>
                   <div className="flex flex-col space-y-[10px] w-[288px] ">
                     <div className="flex space-x-[8px]">
