@@ -72,7 +72,7 @@ const HospitalItem = ({
               src="/touch3.svg"
               alt="터치이미지3"
             />
-            <div className="text-[#717171] text-[14px]">{address}</div>
+            <div className="text-[#717171] text-[14px]">{department}</div>
           </div>
         ) : (
           ''
