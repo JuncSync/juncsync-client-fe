@@ -4,7 +4,7 @@ import RefreshBtn from '@/component/RefreshBtn';
 
 const HomePageMain = () => {
   return (
-    <div className="bg-white w-full h-screen">
+    <div className="bg-white sticky top-0 w-full h-screen">
       <RefreshBtn />
       <DistanceBtn />
       <HospitalList />

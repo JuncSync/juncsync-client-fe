@@ -3,7 +3,7 @@ import React from 'react';
 const RefreshBtn = () => {
   return (
     <>
-      <div className=" px-[20px] py-[12px] flex items-center	justify-between border-[#f1f1f1] border-[1px]">
+      <div className=" sticky top-0 bg-white px-[20px] py-[12px] flex items-center	justify-between border-[#f1f1f1] border-[1px]">
         <img className="w-[84px] h-[32px]" src="/logo.svg" alt="서비스 글자" />
         <div className="px-[12px] py-[6px] bg-white rounded-[5.72px] border-[#232323] border-[0.95px] text-[#717171] hover:text-[#d2d2d2] fill-[#717171] hover:fill-[#d2d2d2] hover:bg-[#f1f1f1] ">
           <div className="flex items-center	space-x-[6px] right-0 ">
