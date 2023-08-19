@@ -1,25 +1,136 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
+import { useRecoilState } from 'recoil';
+
+import { getDistince } from '@/utils/calDistance';
+
+import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 
 function Mapcom() {
-  const OverlayMap = () => {
+  const [hospitals, setHospitals] = useState<IHospital[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      const data: any = await axios.get(
+        'https://api.juncsync.jaehong21.com/hospital',
+        {
+          headers: {
+            accept: 'application/json',
+          },
+        },
+      );
+      const newData = data.data.data;
+      const newHosList = newData.map((hos: any) => {
+        const tmpHos: IHospital = {
+          id: hos.id,
+          name: hos.name,
+          phone: hos.phone,
+          address: hos.location,
+          totBed: hos.bed_count,
+          currBed: hos.empty_bed_count,
+          lng: hos.coordinates[1] ? hos.coordinates[1] : 129.1363094535471,
+          lat: hos.coordinates[0] ? hos.coordinates[0] : 35.16911120538366,
+          department: hos.department ? hos.department : '학과설명입니다',
+        };
+        return tmpHos;
+      });
+      setHospitals(newHosList);
+    };
+
+    setIsLoading(true);
+    fetchData();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
+  }, []);
+
+  const OverlayMap = (tot: any) => {
     const [isOpen, setIsOpen] = useState(false);
-    const positions = { lat: 36.01244723249525, lng: 129.32185119710428 };
+    const [currLat, setCurrLat] = useState<number>(35.16606385987392);
+    const [currLng, setCurrLng] = useState<number>(129.135722275161);
+    console.log(tot.hos);
     return (
       <>
-        <MapMarker position={positions} onClick={() => setIsOpen(true)} />
+        <MapMarker
+          position={{ lat: tot.hos.lat, lng: tot.hos.lng }}
+          onClick={() => setIsOpen(true)}
+        />
         {isOpen && (
-          <CustomOverlayMap position={positions}>
-            <div className=" border drop-shadow-lg rounded-lg bg-white w-32">
+          <CustomOverlayMap position={{ lat: tot.hos.lat, lng: tot.hos.lng }}>
+            <div className=" bg-white h-[205px] rounded-[8px] flex flex-col space-y-[12px] p-[16px] border-[#ff6b00] border-[1px]  ">
               <div className="rounded-lg ">
-                <div className="flex relative bg-[#C80150] rounded-tr-lg rounded-tl-lg ">
-                  <div className="mt-1 pl-1 ml-1 text-white"> "제목" </div>
+                <div className="flex  ">
                   <div
-                    className="absolute right-0 mr-2 mt-1 hover:text-slate-300 text-white "
+                    className="  "
                     onClick={() => setIsOpen(false)}
                     title="닫기"
                   >
                     X
+                  </div>
+                </div>
+                <div>
+                  <div className=" flex flex-col space-y-[10px] ">
+                    <div className="font-semibold text-[18px] text-[#1b1b1b]">
+                      {tot.hos.name}
+                    </div>
+                    <div className="flex flex-col space-y-[10px] w-[288px] ">
+                      <div className="flex space-x-[8px]">
+                        <img
+                          className="w-[22px] h-[22px]"
+                          src="/touch1.svg"
+                          alt="터치이미지1"
+                        />
+                        <div className="text-[#717171] text-[14px]">
+                          {tot.hos.address}
+                        </div>
+                      </div>
+                      <div className="flex space-x-[8px]">
+                        <img
+                          className="w-[22px] h-[22px]"
+                          src="/touch2.svg"
+                          alt="터치이미지2"
+                        />
+                        <div className="text-[#717171] text-[14px]">
+                          {tot.hos.phone}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex space-x-[8px]">
+                      <img
+                        className="w-[22px] h-[22px]"
+                        src="/touch3.svg"
+                        alt="터치이미지3"
+                      />
+                      <div className="text-[#717171] text-[14px]">
+                        {tot.hos.department}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex justify-between border-t-[1px] border-[#f1f1f1] text-[#1b1b1b] font-semibold text-[14px] pt-[8px] ">
+                    <div className="w-[124px] flex space-x-[4px] align-text-bottom">
+                      <div className=" font-semibold text-[#1b1b1b] text-[14px] ">
+                        Distance
+                      </div>
+                      <div className="text-[#ff6b00] font-semibold text-[14px] ">
+                        {getDistince(
+                          currLng,
+                          currLat,
+                          tot.hos.lng,
+                          tot.hos.lat,
+                        ).toFixed(1)}
+                        KM
+                      </div>
+                    </div>
+                    <div className="w-[155px] justify-between align-text-bottom flex space-x-[2px] font-semibold text-[#1b1b1b] text-[14px] ">
+                      <div>Remaining beds </div>
+                      <div>
+                        <span className="text-[#ff6b00] text-[14px] ">
+                          {tot.hos.currBed}
+                        </span>
+                        /{tot.hos.totBed}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -30,110 +141,22 @@ function Mapcom() {
     );
   };
 
-  const data = [
-    {
-      content: (
-        <div className="flex justify-center">
-          <div>
-            <div className="flex justify-center">
-              <img
-                className="mt-2 "
-                src="img/청암.jpg"
-                width="73"
-                height="70"
-                alt="2공학관"
-              />
-            </div>
-            <div className="desc">
-              <div className="ellipsis"> 적정 인원수 90 </div>
-              <div className="jibun ellipsis"> 현재 인원수 33 </div>
-              <div className="jibun ellipsis">
-                {' '}
-                포인트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;10{' '}
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      latlng: { lat: 36.012793922685795, lng: 129.3251617222954 },
-      title: '청암 학술정보관',
-    },
-    {
-      content: (
-        <div className="flex justify-center">
-          <div>
-            <div className="flex justify-center">
-              <img
-                className="mt-2 "
-                src="img/2공학관.jpg"
-                width="73"
-                height="70"
-                alt="2공학관"
-              />
-            </div>
-            <div className="desc">
-              <div className="ellipsis"> 적정 인원수 50 </div>
-              <div className="jibun ellipsis"> 현재 인원수 10 </div>
-              <div className="jibun ellipsis">
-                {' '}
-                포인트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5{' '}
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      latlng: { lat: 36.01199988200514, lng: 129.32261879164327 },
-      title: '제 2공학관',
-    },
-    {
-      content: (
-        <div className="flex justify-center">
-          <div>
-            <div className="flex justify-center">
-              <img
-                className="mt-2 "
-                src="img/무은재.jpg"
-                width="73"
-                height="70"
-                alt="2공학관"
-              />
-            </div>
-            <div className="desc">
-              <div className="ellipsis"> 적정 인원수 20 </div>
-              <div className="jibun ellipsis"> 현재 인원수 17 </div>
-              <div className="jibun ellipsis">
-                {' '}
-                포인트&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4{' '}
-              </div>
-            </div>
-          </div>
-        </div>
-      ),
-      latlng: { lat: 36.01244723249525, lng: 129.32185119710428 },
-      title: '무은재 기념관',
-    },
-  ];
-
   return (
-    <div className="w-full flex justify-center ">
-      <div className="h-3/5 w-4/5 ">
-        <Map // 지도를 표시할 Container
+    <div className="w-full h-full">
+      <div className="w-full h-full ">
+        <Map
           center={{
-            // 지도의 중심좌표
-            lat: 36.0129952127773,
-            lng: 129.32295852510202,
+            lat: 35.16606385987392,
+            lng: 129.135722275161,
           }}
           style={{
-            // 지도의 크기
             width: '100%',
-            height: '450px',
+            height: '100%',
           }}
-          level={4} // 지도의 확대 레벨
+          level={9}
         >
-          {data.map((value) => (
-            <OverlayMap
-              key={`EventMarkerContainer-${value.latlng.lat}-${value.latlng.lng}`}
-            />
+          {hospitals.map((hos: IHospital) => (
+            <OverlayMap key={`EventMarkerContainer-${hos.id}`} hos={hos} />
           ))}
         </Map>
       </div>
