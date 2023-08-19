@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -15,41 +16,6 @@ const DistanceBtn = () => {
   const [currLng, setCurrLng] = useState<number>(129.135722275161);
   const location = UseGeolocation();
   const disList = [5, 10, 20, 30, 50];
-  const defaultHos = [
-    {
-      id: 1,
-      name: '벡스코옆',
-      address: '주소1',
-      phone: '1',
-      lat: 35.16911120538366,
-      lng: 129.1363094535471,
-      totBed: 10,
-      currBed: 5,
-      department: '학과1',
-    },
-    {
-      id: 2,
-      name: '일광10키로이상',
-      address: '주소2',
-      phone: '전화2',
-      lat: 35.259368276299625,
-      lng: 129.23412645566114,
-      totBed: 30,
-      currBed: 2,
-      department: '학과2',
-    },
-    {
-      id: 3,
-      name: '송정5키로이상',
-      address: '주소2',
-      phone: '전화2',
-      lat: 35.178959258915924,
-      lng: 129.20029161438148,
-      totBed: 30,
-      currBed: 1,
-      department: '학과2',
-    },
-  ];
 
   const onClickMethod = useCallback((): void => {
     setOpenDrop(!openDrop);
@@ -70,16 +36,42 @@ const DistanceBtn = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      const data: any = await axios.get(
+        'https://api.juncsync.jaehong21.com/hospital',
+        {
+          headers: {
+            accept: 'application/json',
+          },
+        },
+      );
+      const newData = data.data.data;
+      const newHosList = newData.map((hos: any) => {
+        const tmpHos: IHospital = {
+          id: hos.id,
+          name: hos.name,
+          phone: hos.phone,
+          address: hos.location.join(''),
+          totBed: hos.bed_count,
+          currBed: hos.empty_bed_count,
+          lng: hos.lng ? hos.lng : 129.1363094535471,
+          lat: hos.lat ? hos.lat : 35.16911120538366,
+          department: hos.department ? hos.department : '학과설명입니다',
+        };
+        return tmpHos;
+      });
+      console.log('거리 변경');
+      console.log(newHosList);
+
+      setHospitals(newHosList);
+    };
+
     // 서버로부터 fetch를 하는 과정이 필요함
-    setHospitals(defaultHos);
+    fetchData();
     updateDistance(currDistance);
     const makeid = 'dropDown' + currDistance.toString();
     const tmp = document.getElementById(makeid);
     if (!tmp) return;
-    if (!tmp) {
-      console.log('13');
-      return;
-    }
     tmp.classList.add('bg-[#fafafa]');
   }, [currDistance]);
 

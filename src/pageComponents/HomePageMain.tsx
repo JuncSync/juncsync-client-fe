@@ -38,6 +38,8 @@ const HomePageMain = () => {
         };
         return tmpHos;
       });
+      console.log('초기로딩');
+      console.log(newHosList);
       setHospitals(newHosList);
     };
     fetchData();
