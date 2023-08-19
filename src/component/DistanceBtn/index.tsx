@@ -33,7 +33,6 @@ const DistanceBtn = () => {
       const sortedHos = [...filterHos].sort(
         (a: IHospital, b: IHospital) => b.currBed - a.currBed,
       );
-      console.log(sortedHos);
       return sortedHos;
     });
   };
@@ -54,18 +53,15 @@ const DistanceBtn = () => {
           id: hos.id,
           name: hos.name,
           phone: hos.phone,
-          address: hos.location.join(''),
+          address: hos.location,
           totBed: hos.bed_count,
           currBed: hos.empty_bed_count,
-          lng: hos.lng ? hos.lng : 129.1363094535471,
-          lat: hos.lat ? hos.lat : 35.16911120538366,
+          lng: hos.coordinates[1] ? hos.coordinates[1] : 129.1363094535471,
+          lat: hos.coordinates[0] ? hos.coordinates[0] : 35.16911120538366,
           department: hos.department ? hos.department : '학과설명입니다',
         };
         return tmpHos;
       });
-      console.log('거리 변경');
-      console.log(newHosList);
-
       setHospitals(newHosList);
     };
 
@@ -90,7 +86,6 @@ const DistanceBtn = () => {
       const tmp = document.getElementById(makeid);
       if (!tmp) return;
       if (!tmp) {
-        console.log('12');
         return;
       }
       tmp.classList.remove('bg-[#fafafa]');
@@ -107,7 +102,6 @@ const DistanceBtn = () => {
       const makeid1 = 'dropDown' + newDist.toString();
       const tmp1 = document.getElementById(makeid1);
       if (!tmp1) {
-        console.log('11');
         return;
       }
       tmp.classList.add('bg-[#fafafa]');

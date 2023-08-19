@@ -32,17 +32,15 @@ const HomePageMain = () => {
           id: hos.id,
           name: hos.name,
           phone: hos.phone,
-          address: hos.location.join(''),
+          address: hos.location,
           totBed: hos.bed_count,
           currBed: hos.empty_bed_count,
-          lng: hos.lng ? hos.lng : 129.1363094535471,
-          lat: hos.lat ? hos.lat : 35.16911120538366,
+          lng: hos.coordinates[1] ? hos.coordinates[1] : 129.1363094535471,
+          lat: hos.coordinates[0] ? hos.coordinates[0] : 35.16911120538366,
           department: hos.department ? hos.department : '학과설명입니다',
         };
         return tmpHos;
       });
-      console.log('초기로딩');
-      console.log(newHosList);
       const sortedHos = [...newHosList].sort(
         (a: IHospital, b: IHospital) => b.currBed - a.currBed,
       );
