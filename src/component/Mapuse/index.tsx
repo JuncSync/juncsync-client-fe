@@ -60,76 +60,74 @@ function Mapcom() {
           <CustomOverlayMap position={{ lat: tot.hos.lat, lng: tot.hos.lng }}>
             <div className=" bg-white h-[205px] rounded-[8px] flex flex-col space-y-[12px] p-[16px] border-[#ff6b00] border-[1px]  ">
               <div className="rounded-lg ">
-                <div className="flex  ">
-                  <div
-                    className="  "
-                    onClick={() => setIsOpen(false)}
-                    title="닫기"
-                  >
-                    X
-                  </div>
-                </div>
-                <div>
-                  <div className=" flex flex-col space-y-[10px] ">
+                <div className=" flex flex-col space-y-[10px] ">
+                  <div className="flex w-full justify-between ">
                     <div className="font-semibold text-[18px] text-[#1b1b1b]">
                       {tot.hos.name}
                     </div>
-                    <div className="flex flex-col space-y-[10px] w-[288px] ">
-                      <div className="flex space-x-[8px]">
-                        <img
-                          className="w-[22px] h-[22px]"
-                          src="/touch1.svg"
-                          alt="터치이미지1"
-                        />
-                        <div className="text-[#717171] text-[14px]">
-                          {tot.hos.address}
-                        </div>
-                      </div>
-                      <div className="flex space-x-[8px]">
-                        <img
-                          className="w-[22px] h-[22px]"
-                          src="/touch2.svg"
-                          alt="터치이미지2"
-                        />
-                        <div className="text-[#717171] text-[14px]">
-                          {tot.hos.phone}
-                        </div>
+                    <div
+                      className="  "
+                      onClick={() => setIsOpen(false)}
+                      title="닫기"
+                    >
+                      X
+                    </div>
+                  </div>
+                  <div className="flex flex-col space-y-[10px] w-[288px] ">
+                    <div className="flex space-x-[8px]">
+                      <img
+                        className="w-[22px] h-[22px]"
+                        src="/touch1.svg"
+                        alt="터치이미지1"
+                      />
+                      <div className="text-[#717171] text-[14px]">
+                        {tot.hos.address}
                       </div>
                     </div>
                     <div className="flex space-x-[8px]">
                       <img
                         className="w-[22px] h-[22px]"
-                        src="/touch3.svg"
-                        alt="터치이미지3"
+                        src="/touch2.svg"
+                        alt="터치이미지2"
                       />
                       <div className="text-[#717171] text-[14px]">
-                        {tot.hos.department}
+                        {tot.hos.phone}
                       </div>
                     </div>
                   </div>
-                  <div className="flex justify-between border-t-[1px] border-[#f1f1f1] text-[#1b1b1b] font-semibold text-[14px] pt-[8px] ">
-                    <div className="w-[124px] flex space-x-[4px] align-text-bottom">
-                      <div className=" font-semibold text-[#1b1b1b] text-[14px] ">
-                        Distance
-                      </div>
-                      <div className="text-[#ff6b00] font-semibold text-[14px] ">
-                        {getDistince(
-                          currLng,
-                          currLat,
-                          tot.hos.lng,
-                          tot.hos.lat,
-                        ).toFixed(1)}
-                        KM
-                      </div>
+                  <div className="flex space-x-[8px]">
+                    <img
+                      className="w-[22px] h-[22px]"
+                      src="/touch3.svg"
+                      alt="터치이미지3"
+                    />
+                    <div className="text-[#717171] text-[14px]">
+                      {tot.hos.department}
                     </div>
-                    <div className="w-[155px] justify-between align-text-bottom flex space-x-[2px] font-semibold text-[#1b1b1b] text-[14px] ">
-                      <div>Remaining beds </div>
-                      <div>
-                        <span className="text-[#ff6b00] text-[14px] ">
-                          {tot.hos.currBed}
-                        </span>
-                        /{tot.hos.totBed}
-                      </div>
+                  </div>
+                </div>
+                <div className="flex justify-between border-t-[1px] border-[#f1f1f1] text-[#1b1b1b] font-semibold text-[14px] pt-[8px] ">
+                  <div className="w-[124px] flex space-x-[4px] align-text-bottom">
+                    <div className=" font-semibold text-[#1b1b1b] text-[14px] ">
+                      Distance
+                    </div>
+                    <div className="text-[#ff6b00] font-semibold text-[14px] ">
+                      {getDistince(
+                        currLng,
+                        currLat,
+                        tot.hos.lng,
+                        tot.hos.lat,
+                      ).toFixed(1)}
+                      KM
+                    </div>
+                  </div>
+                  <div className="w-[155px] justify-between align-text-bottom flex space-x-[2px] font-semibold text-[#1b1b1b] text-[14px] ">
+                    <div>Remaining beds </div>
+                    <div>
+                      <span className="text-[#ff6b00] text-[14px] ">
+                        {tot.hos.currBed}
+                      </span>
+                      /{tot.hos.totBed}
                     </div>
                   </div>
                 </div>
