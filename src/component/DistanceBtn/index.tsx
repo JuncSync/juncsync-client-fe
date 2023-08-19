@@ -84,7 +84,7 @@ const DistanceBtn = () => {
   }, [currDistance]);
 
   const dropSelect = useCallback(
-    (e) => {
+    (e: any) => {
       setOpenDrop(false);
       const makeid = 'dropDown' + currDistance.toString();
       const tmp = document.getElementById(makeid);
