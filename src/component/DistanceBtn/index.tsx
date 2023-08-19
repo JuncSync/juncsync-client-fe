@@ -1,5 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
+
+import { getDistince } from '@/utils/calDistance';
 
 import { UseGeolocation } from '../Geolocation/Geolocation.type';
 import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
@@ -8,30 +10,75 @@ const DistanceBtn = () => {
   // lat 35.16606385987392 / lng 129.1357222751617
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
   const [openDrop, setOpenDrop] = useState<Boolean>(false);
-  const [currDistance, setCurrDistance] = useState<Number>(5);
-  const disList = [5, 10, 20, 30, 50];
+  const [currDistance, setCurrDistance] = useState<number>(5);
+  const [currLat, setCurrLat] = useState<number>(35.16606385987392);
+  const [currLng, setCurrLng] = useState<number>(129.135722275161);
   const location = UseGeolocation();
-  const onClickMethod = useCallback((): void => {
-    const tmp = {
+  const defaultHos = [
+    {
+      id: 1,
+      name: '벡스코옆',
+      address: '주소1',
+      phone: '1',
+      lat: 35.16911120538366,
+      lng: 129.1363094535471,
+      totBed: 10000,
+      currBed: 50,
+      department: '학과1',
+    },
+    {
+      id: 2,
+      name: '일광10키로이상',
+      address: '주소2',
+      phone: '전화2',
+      lat: 35.259368276299625,
+      lng: 129.23412645566114,
+      totBed: 3000,
+      currBed: 20,
+      department: '학과2',
+    },
+    {
       id: 3,
-      name: '33',
-      address: '33',
-      phone: '33',
-      lat: 3,
-      lng: 3,
-      totBed: 3,
-      currBed: 3,
-      department: 'string',
-    };
+      name: '송정5키로이상',
+      address: '주소2',
+      phone: '전화2',
+      lat: 35.178959258915924,
+      lng: 129.20029161438148,
+      totBed: 300,
+      currBed: 200,
+      department: '학과2',
+    },
+  ];
 
-    setHospitals([...hospitals, tmp]);
+  const onClickMethod = useCallback((): void => {
     setOpenDrop(!openDrop);
-  }, [hospitals, setHospitals, openDrop, setOpenDrop]);
+  }, [openDrop, setOpenDrop]);
+
+  const updateDistance = (distance: number): void => {
+    setHospitals((prevHos: IHospital[]) => {
+      const filterHos = prevHos.filter(
+        (hos: IHospital) =>
+          Number(getDistince(currLng, currLat, hos.lng, hos.lat)) < distance,
+      );
+      const sortedHos = [...filterHos].sort(
+        (a: IHospital, b: IHospital) => b.currBed - a.currBed,
+      );
+
+      return sortedHos;
+    });
+  };
+
+  useEffect(() => {
+    // 서버로부터 fetch를 하는 과정이 필요함
+    setHospitals(defaultHos);
+    updateDistance(currDistance);
+    console.log(hospitals);
+  }, [currDistance]);
 
   const dropSelect = useCallback(
     (dis: Number) => {
       setOpenDrop(false);
-      setCurrDistance(dis);
+      setCurrDistance(Number(dis));
     },
     [setOpenDrop, setCurrDistance],
   );
@@ -64,7 +111,6 @@ const DistanceBtn = () => {
             onClick={() => onClickMethod()}
           />
         </div>
-        {JSON.stringify(location)}
       </div>
     </>
   );
