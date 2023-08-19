@@ -37,7 +37,10 @@ const RefreshBtn = () => {
     });
     console.log('리프레쉬 버튼 작동');
     console.log(newHosList);
-    setHospitals(newHosList);
+    const sortedHos = [...newHosList].sort(
+      (a: IHospital, b: IHospital) => b.currBed - a.currBed,
+    );
+    setHospitals(sortedHos);
   };
 
   const fetDataHandler = () => {

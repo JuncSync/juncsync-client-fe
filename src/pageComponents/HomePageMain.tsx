@@ -43,7 +43,10 @@ const HomePageMain = () => {
       });
       console.log('초기로딩');
       console.log(newHosList);
-      setHospitals(newHosList);
+      const sortedHos = [...newHosList].sort(
+        (a: IHospital, b: IHospital) => b.currBed - a.currBed,
+      );
+      setHospitals(sortedHos);
     };
     setIsLoading(true);
     fetchData();

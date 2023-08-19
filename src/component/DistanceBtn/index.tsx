@@ -149,7 +149,7 @@ const DistanceBtn = () => {
               src="/location.svg"
               alt="위치 이미지"
             />
-            <div className="font-semibold text-[12px] text-[#1b1b1b] font-['Pretendard'] ">
+            <div className="font-semibold text-[14px] text-[#1b1b1b] font-['Pretendard'] ">
               Near by{' '}
               <span className="text-[#ff6b00]">{String(currDistance)}Km</span>
             </div>
