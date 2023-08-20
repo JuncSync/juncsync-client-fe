@@ -7,12 +7,19 @@ import { getDistince } from '@/utils/calDistance';
 import loadingLottie from '@/utils/lottie.json';
 
 import { UseGeolocation } from '../Geolocation/Geolocation.type';
-import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
+import {
+  IHospital,
+  Idistance,
+  distanceState,
+  hospitalState,
+} from '../HospitalItem/HospitalItem.type';
 
 const DistanceBtn = () => {
   // lat 35.16606385987392 / lng 129.1357222751617
   const [isLoading, setIsLoading] = useState(false);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
+  const [globalDistance, setGlobalDistance] =
+    useRecoilState<Idistance>(distanceState);
   const [openDrop, setOpenDrop] = useState<Boolean>(false);
   const [currDistance, setCurrDistance] = useState<number>(5);
   const [currLat, setCurrLat] = useState<number>(35.16606385987392);
@@ -35,6 +42,7 @@ const DistanceBtn = () => {
       );
       return sortedHos;
     });
+    setGlobalDistance({ distance: distance });
   };
 
   useEffect(() => {

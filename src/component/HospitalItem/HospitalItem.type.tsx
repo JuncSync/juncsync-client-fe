@@ -1,6 +1,17 @@
 import React from 'react';
 import { atom } from 'recoil';
 
+export interface Idistance {
+  distance: number;
+}
+
+export const distanceState = atom<Idistance>({
+  key: 'distance',
+  default: {
+    distance: 5,
+  },
+});
+
 export interface IHospital {
   id: number;
   name: string;

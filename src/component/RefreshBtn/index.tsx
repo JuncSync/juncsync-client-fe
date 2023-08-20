@@ -4,11 +4,14 @@ import Lottie from 'lottie-react';
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
 
+import { getDistince } from '@/utils/calDistance';
 import loadingLottie from '@/utils/lottie.json';
 
 import {
   IHospital,
+  Idistance,
   Ilist,
+  distanceState,
   hospitalState,
   listState,
 } from '../HospitalItem/HospitalItem.type';
@@ -17,6 +20,10 @@ const RefreshBtn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [hospitals, setHospitals] = useRecoilState<IHospital[]>(hospitalState);
   const [isList, setIsList] = useRecoilState<Ilist>(listState);
+  const [currLat, setCurrLat] = useState<number>(35.16606385987392);
+  const [currLng, setCurrLng] = useState<number>(129.135722275161);
+  const [globalDistance, setGlobalDistance] =
+    useRecoilState<Idistance>(distanceState);
 
   const fetchData = async () => {
     const data: any = await axios.get(
@@ -45,7 +52,13 @@ const RefreshBtn = () => {
     const sortedHos = [...newHosList].sort(
       (a: IHospital, b: IHospital) => b.currBed - a.currBed,
     );
-    setHospitals(sortedHos);
+    const sortedHos1 = sortedHos.filter(
+      (hos: IHospital) =>
+        Number(getDistince(currLng, currLat, hos.lng, hos.lat)) <
+        globalDistance.distance,
+    );
+    console.log(globalDistance.distance);
+    setHospitals(sortedHos1);
   };
 
   const fetDataHandler = () => {
@@ -107,6 +120,7 @@ const RefreshBtn = () => {
               ? ' bg-[#f1f1f1] fill-[#d2d2d2] text-[#d2d2d2] '
               : '  bg-white fill-[#717171] text-[#717171] '
           }`}
+            onClick={fetDataHandler}
           >
             <div className="flex items-center	space-x-[6px] right-0 ">
               <svg
@@ -120,7 +134,6 @@ const RefreshBtn = () => {
                 className={`w-[50px] h-[20px] font-semibold text-[14px] font-['Pretendard'] text-center ${
                   isLoading ? ' text-[#d2d2d2] ' : ' '
                 }`}
-                onClick={fetDataHandler}
               >
                 Refresh
               </div>
