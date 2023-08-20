@@ -124,7 +124,9 @@ const RefreshBtn = () => {
           >
             <div className="flex items-center	space-x-[6px] right-0 ">
               <svg
-                className="w-[12px] h-[12x] "
+                className={`w-[12px] h-[12x] ${
+                  isLoading ? ' animate-spin ' : ' '
+                }`}
                 viewBox="0 0 12 12"
                 xmlns="http://www.w3.org/2000/svg"
               >
