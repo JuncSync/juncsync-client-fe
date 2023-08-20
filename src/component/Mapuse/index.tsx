@@ -1,7 +1,12 @@
 import axios from 'axios';
 import Lottie from 'lottie-react';
 import React, { useEffect, useState } from 'react';
-import { CustomOverlayMap, Map, MapMarker } from 'react-kakao-maps-sdk';
+import {
+  CustomOverlayMap,
+  Map,
+  MapMarker,
+  Polyline,
+} from 'react-kakao-maps-sdk';
 import { useRecoilState } from 'recoil';
 
 import { getDistince } from '@/utils/calDistance';
@@ -12,6 +17,12 @@ import { IHospital, hospitalState } from '../HospitalItem/HospitalItem.type';
 function Mapcom() {
   const [hospitals, setHospitals] = useState<IHospital[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [dot, setDot] = useState([
+    [
+      { lat: 35.16606385987392, lng: 129.135722275161 },
+      { lat: 35.16606385987392, lng: 129.135722275162 },
+    ],
+  ]);
   useEffect(() => {
     const fetchData = async () => {
       const data: any = await axios.get(
@@ -51,7 +62,12 @@ function Mapcom() {
     const [isOpen, setIsOpen] = useState(false);
     const [currLat, setCurrLat] = useState<number>(35.16606385987392);
     const [currLng, setCurrLng] = useState<number>(129.135722275161);
-    console.log(tot.hos);
+    const defaultDot = { lat: 35.16606385987392, lng: 129.135722275161 };
+    // const openHandler = (newLat: number, newLng: number) => {
+    //   const newDot = [[defaultDot, { lat: newLat, lng: newLng }]];
+    //   setDot(newDot);
+    //   setIsOpen(true);
+    // };
     return (
       <>
         {isLoading && (
@@ -163,6 +179,13 @@ function Mapcom() {
           {hospitals.map((hos: IHospital) => (
             <OverlayMap key={`EventMarkerContainer-${hos.id}`} hos={hos} />
           ))}
+          <Polyline
+            path={dot}
+            strokeWeight={5} // 선의 두께 입니다
+            strokeColor={'#FFAE00'} // 선의 색깔입니다
+            strokeOpacity={0.7} // 선의 불투명도 입니다 1에서 0 사이의 값이며 0에 가까울수록 투명합니다
+            strokeStyle={'solid'} // 선의 스타일입니다
+          />
         </Map>
       </div>
     </div>
