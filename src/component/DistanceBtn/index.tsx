@@ -58,7 +58,7 @@ const DistanceBtn = () => {
           currBed: hos.empty_bed_count,
           lng: hos.coordinates[1] ? hos.coordinates[1] : 129.1363094535471,
           lat: hos.coordinates[0] ? hos.coordinates[0] : 35.16911120538366,
-          department: hos.department ? hos.department : '학과설명입니다',
+          department: hos.specialties ? hos.specialties : '학과설명입니다',
         };
         return tmpHos;
       });
