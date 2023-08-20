@@ -81,11 +81,11 @@ function Mapcom() {
         />
         {isOpen && (
           <CustomOverlayMap position={{ lat: tot.hos.lat, lng: tot.hos.lng }}>
-            <div className=" bg-white rounded-[8px] flex flex-col space-y-[12px] p-[16px] border-[#ff6b00] border-[1px]  ">
+            <div className=" bg-white rounded-[8px] flex flex-col space-y-[12px] p-[16px] border-[#ff6b00] border-[1px] w-[320px] ">
               <div className="rounded-lg ">
                 <div className=" flex flex-col space-y-[10px] ">
-                  <div className="flex w-full justify-between ">
-                    <div className="font-semibold text-[18px] text-[#1b1b1b]">
+                  <div className="flex justify-between ">
+                    <div className="font-semibold text-[18px] text-[#1b1b1b] truncate">
                       {tot.hos.name}
                     </div>
                     <img
@@ -103,7 +103,7 @@ function Mapcom() {
                         src="/touch1.svg"
                         alt="터치이미지1"
                       />
-                      <div className="text-[#717171] text-[14px]">
+                      <div className="text-[#717171] text-[14px] truncate">
                         {tot.hos.address}
                       </div>
                     </div>
@@ -124,7 +124,7 @@ function Mapcom() {
                       src="/touch3.svg"
                       alt="터치이미지3"
                     />
-                    <div className="text-[#717171] text-[14px]">
+                    <div className="text-[#717171] text-[14px] truncate">
                       {tot.hos.department}
                     </div>
                   </div>
